@@ -26,7 +26,8 @@ public class StudentDaoImp implements StudentDao {
 		
 		Connection con=getConnect();
 		
-		String sql="insert into student_tbl (s_id,s_name) values(1,'OMKAR')";
+		String sql="insert into student_tbl (s_id,s_name) values(?,?)";
+		
 		PreparedStatement ps=con.prepareStatement(sql);
 		
 		ps.setInt(1, s.getS_id());
@@ -41,9 +42,23 @@ public class StudentDaoImp implements StudentDao {
 	}
 
 	@Override
-	public int update(Student s) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int update(Student s) throws ClassNotFoundException, SQLException {
+		
+		Connection con=getConnect();
+		
+		String sql="UPDATE student_tbl SET s_name=? WHERE s_id=?";
+		
+        PreparedStatement ps=con.prepareStatement(sql);
+		
+		ps.setString(1, s.getS_name());
+		ps.setInt(2, s.getS_id());
+		
+		int a1=ps.executeUpdate();
+		
+		con.close();
+		
+		
+		return a1;
 	}
 
 
