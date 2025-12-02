@@ -8,9 +8,9 @@ import java.util.ArrayList;
 
 import model.Student;
 
-public class StudentDaoImp implements StudentDao {
+public class StudentDaoImp implements StudentDao {// implement in SDI to get override methods ...
 	
-	
+	// C O N N E C T I ON  code of jdbc to mysql.....
 	  public Connection getConnect() throws SQLException, ClassNotFoundException
 	  {
 		  Class.forName("com.mysql.cj.jdbc.Driver");
@@ -21,6 +21,7 @@ public class StudentDaoImp implements StudentDao {
 		  
 	  }
 
+	  // Override from StudentDao Interface.....
 	@Override
 	public int save(Student s) throws SQLException, ClassNotFoundException {
 		
@@ -50,8 +51,8 @@ public class StudentDaoImp implements StudentDao {
 		
         PreparedStatement ps=con.prepareStatement(sql);
 		
-		ps.setString(1, s.getS_name());
 		ps.setInt(2, s.getS_id());
+		ps.setString(1, s.getS_name());
 		
 		int a1=ps.executeUpdate();
 		

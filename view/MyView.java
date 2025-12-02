@@ -6,8 +6,9 @@ import java.util.Scanner;
 import controller.StudentDaoImp;
 import model.Student;
 
-public class MyView {
-	
+public class MyView { // This View for user . .
+	 
+	// create a constructor only create an obj to call....
 	public MyView() throws ClassNotFoundException, SQLException {
 		
 		int s_id= 0;
@@ -72,6 +73,7 @@ public class MyView {
 				
 				System.out.println("Enter NEW Student ID: ");
 				s_id=s.nextInt();
+				s.nextLine();
 				
 				System.out.println("Enter NEW Student Name: ");
 				s_name=s.nextLine();
