@@ -1,6 +1,7 @@
 package view;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import controller.StudentDaoImp;
@@ -11,6 +12,7 @@ public class MyView { // This View for user . .
 	// create a constructor only create an obj to call....
 	public MyView() throws ClassNotFoundException, SQLException {
 		
+	//System.out.println("hello om");
 		int s_id= 0;
 		int choice=0;
 		String s_name=" ";
@@ -61,9 +63,21 @@ public class MyView { // This View for user . .
 			break;
 			
 			case 2:
-				System.out.println("\n==== Student Details ====");
-				System.out.println("Student ID: "+s_id);
-				System.out.println("Student Name: "+s_name);
+				System.out.println("\n==== View Students ====");
+				
+				
+				
+				StudentDaoImp db0=new StudentDaoImp();
+				
+			     ArrayList<Student> sl=new ArrayList<>();
+			     
+			     sl = db0.getData();
+			     
+			     for(Student x:sl)
+			     System.out.println(x.getS_id()+" "+x.getS_name());
+			    
+				
+				
 				
 			break;
 			
@@ -100,10 +114,18 @@ public class MyView { // This View for user . .
 				System.out.println("Enter NEW Student ID: ");
 				s_id=s.nextInt();
 				
-				System.out.println("Enter NEW Student Name: ");
-				s_name=s.nextLine();
+				Student s3=new Student(s_id, s_name);
 				
-				System.out.println("Student record DELETE Successfully!!");
+				StudentDaoImp db2=new StudentDaoImp();
+				
+				int a2=db2.delete(s3);
+				
+				if(a2>0)
+				{
+					System.out.println("Student record DELETE Successfully!!");
+				}
+				else
+				System.out.println("Student Record not Deleted..");
 				
 				break;
 				

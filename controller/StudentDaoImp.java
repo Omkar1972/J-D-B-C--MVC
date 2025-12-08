@@ -3,7 +3,9 @@ package controller;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import model.Student;
@@ -64,16 +66,49 @@ public class StudentDaoImp implements StudentDao {// implement in SDI to get ove
 
 
 	@Override
-	public int delete(Student s) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int delete(Student s) throws ClassNotFoundException, SQLException {
+		
+		Connection con=getConnect();
+		
+		String sql="DELETE FROM student_tbl WHERE s_id = ?";
+		
+		PreparedStatement ps=con.prepareStatement(sql);
+		
+		ps.setInt(1, s.getS_id());
+		
+		int a2=ps.executeUpdate();
+		
+		con.close();
+		
+		return a2;
 	}
 
 
 	@Override
-	public ArrayList<Student> getData(Student s) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Student> getData() throws ClassNotFoundException, SQLException {
+		
+		ArrayList<Student> al=new ArrayList();
+		
+		Connection con=getConnect();
+		
+		 Statement st=con.createStatement();
+		    
+		   String sql="select * from student_tbl";
+		    
+		  ResultSet rs=st.executeQuery(sql);
+		   
+		  while(rs.next())
+		    {
+			    Student s=new Student(rs.getInt(1), rs.getString(2).toUpperCase());
+		  
+		    	al.add(s);
+		    	
+		    }
+	      
+		 
+		con.close();
+		
+		return al;
 	}
 
 	
